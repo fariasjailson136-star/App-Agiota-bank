@@ -3,647 +3,1046 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Sistema de Controle de Cobranças - Gestão Inteligente</title>
+<title>Fixa agiota-bank PRO - Gestão de Clientes</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
-* {
-    box-sizing: border-box;
-    user-select: none; /* Evita seleção acidental ao clicar nos dias */
-}
-
-body {
-    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-    background: #0a0c10;
-    color: #eef2ff;
-    padding: 16px 12px 40px;
+  * {
     margin: 0;
-}
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-.container {
-    max-width: 560px;
+  body {
+    background: linear-gradient(135deg, #0B1120 0%, #0F172A 100%);
+    font-family: 'Inter', sans-serif;
+    color: #E2E8F0;
+    padding-bottom: 2rem;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #1E293B;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #3B82F6;
+    border-radius: 10px;
+  }
+
+  .header-pro {
+    background: rgba(2, 6, 23, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+    padding: 1rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+  .header-content {
+    max-width: 1400px;
     margin: 0 auto;
-}
-
-h2 {
-    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo-icon {
+    background: linear-gradient(145deg, #3B82F6, #2563EB);
+    width: 42px;
+    height: 42px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+  }
+  .logo-text h1 {
+    font-size: 1.5rem;
     font-weight: 700;
-    margin: 0 0 4px 0;
-    background: linear-gradient(135deg, #E0F2FE, #A5F3C3);
+    background: linear-gradient(135deg, #FFFFFF, #94A3B8);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     letter-spacing: -0.3px;
-}
-
-.sub {
+  }
+  .logo-text span {
     font-size: 0.75rem;
-    color: #9ca3af;
-    margin-bottom: 24px;
-    border-left: 3px solid #10b981;
-    padding-left: 10px;
-}
+    color: #60A5FA;
+    font-weight: 500;
+  }
+  .stats-badge {
+    background: #1E293B;
+    padding: 0.4rem 1rem;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #334155;
+  }
 
-.form-card {
-    background: #1e1f2c;
+  .app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+
+  .card-form {
+    background: #111827;
     border-radius: 28px;
-    padding: 20px 18px;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.5);
-    margin-bottom: 28px;
-    border: 1px solid #2d2f3e;
-}
-
-.input-group {
-    margin-bottom: 16px;
-}
-
-.input-group label {
-    display: block;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid #1F2937;
+    box-shadow: 0 20px 35px -12px rgba(0,0,0,0.4);
+    transition: all 0.2s;
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #F1F5F9;
+    border-left: 4px solid #3B82F6;
+    padding-left: 15px;
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .input-group label {
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: #9ca3cf;
-    margin-bottom: 5px;
-}
-
-input, select {
-    width: 100%;
+    color: #9CA3AF;
+  }
+  input, select {
+    background: #0F172A;
+    border: 1.5px solid #1E293B;
     padding: 12px 14px;
-    background: #0f1117;
-    border: 1px solid #2d2f3e;
-    border-radius: 20px;
-    color: white;
-    font-size: 1rem;
-    transition: 0.2s;
-}
-
-input:focus, select:focus {
+    border-radius: 16px;
+    font-size: 0.9rem;
+    color: #F8FAFC;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  input:focus, select:focus {
     outline: none;
-    border-color: #10b981;
-    box-shadow: 0 0 0 2px rgba(16,185,129,0.3);
-}
-
-button {
-    width: 100%;
-    padding: 14px;
-    border-radius: 40px;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+  }
+  .btn-primary {
+    background: linear-gradient(95deg, #3B82F6, #2563EB);
     border: none;
-    font-weight: bold;
+    font-weight: 700;
+    padding: 12px;
+    border-radius: 40px;
     font-size: 1rem;
-    cursor: pointer;
-    transition: 0.2s;
-    background: #10b981;
     color: white;
-    margin-top: 8px;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
-button:active {
-    transform: scale(0.97);
-}
-
-.btn-salvar-global {
-    background: #3b82f6;
-    margin-bottom: 20px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 10px rgba(37,99,235,0.3);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-}
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(95deg, #2563EB, #1D4ED8);
+    box-shadow: 0 8px 20px rgba(37,99,235,0.4);
+  }
 
-.btn-salvar-global:active {
-    background: #2563eb;
-}
-
-.lista-cobrancas {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-.card {
-    background: #181c27;
-    border-radius: 32px;
-    padding: 18px;
-    border: 1px solid #2c2f3c;
-    transition: 0.1s;
-    box-shadow: 0 5px 12px rgba(0,0,0,0.3);
-}
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-    border-bottom: 1px dashed #2a2e3c;
-    padding-bottom: 8px;
-}
-
-.cliente-nome {
-    font-size: 1.3rem;
-    font-weight: bold;
-    background: linear-gradient(120deg, #fff, #a7f3d0);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-}
-
-.resumo-valores {
-    background: #10131c;
-    border-radius: 24px;
-    padding: 14px;
-    margin: 12px 0;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
-.resumo-item {
-    flex: 1;
-    text-align: center;
-}
-
-.resumo-item .label-peq {
-    font-size: 0.7rem;
-    color: #9ca3af;
-    letter-spacing: 0.3px;
-}
-
-.resumo-item .valor-destaque {
-    font-weight: 800;
-    font-size: 1.2rem;
-    color: #facc15;
-}
-
-.resumo-item .saldo-restante {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #f87171;
-}
-
-.grid-dias {
+  .clientes-grid {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: 6px;
-    margin: 16px 0 10px;
-}
-
-.day {
-    aspect-ratio: 1 / 1;
-    background: #252a3a;
-    border-radius: 12px;
-    position: relative;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .cliente-card {
+    background: #0F172A;
+    border-radius: 28px;
+    border: 1px solid #1E293B;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(2px);
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+  }
+  .cliente-card:hover {
+    border-color: #334155;
+    transform: translateY(-3px);
+    box-shadow: 0 20px 30px -12px black;
+  }
+  .card-header {
+    background: rgba(15, 23, 42, 0.8);
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid #1E293B;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .cliente-nome {
+    font-size: 1.2rem;
+    font-weight: 700;
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.1s ease;
-    border: 1px solid #32384b;
-    color: #cfd8ff;
-}
-
-.day.active {
-    background: #10b981;
-    color: white;
-    border-color: #34d399;
-    box-shadow: 0 0 6px #10b981;
-}
-
-.day span {
-    font-size: 10px;
+    gap: 8px;
+  }
+  .cliente-nome i {
+    color: #3B82F6;
+    font-size: 1.2rem;
+  }
+  .badge-limite {
+    background: #1E293B;
+    padding: 4px 12px;
+    border-radius: 30px;
+    font-size: 0.75rem;
     font-weight: 600;
-}
-
-.day .valor-marcado {
-    font-size: 7px;
-    display: block;
-    position: absolute;
-    bottom: 2px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-weight: bold;
-    color: #fff9c4;
-    background: rgba(0,0,0,0.5);
+    color: #FBBF24;
+    transition: all 0.3s ease;
+  }
+  .badge-limite.atualizando {
+    animation: pulse 0.5s ease;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); background: #1E293B; }
+    50% { transform: scale(1.05); background: #3B82F6; }
+    100% { transform: scale(1); background: #1E293B; }
+  }
+  .badge-bonus {
+    background: #10B981;
+    padding: 2px 8px;
     border-radius: 20px;
-    width: 90%;
-    margin: 0 auto;
-    padding: 1px 0;
-}
-
-/* estilo para quadrados com valor pago */
-.day.active .valor-marcado {
-    background: #065f46;
-    color: #e2e8f0;
-}
-
-.botao-salvar-cliente {
-    background: #2c3e66;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: white;
+    margin-left: 5px;
+  }
+  .badge-penalty {
+    background: #EF4444;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: white;
+    margin-left: 5px;
+  }
+  .card-body {
+    padding: 1.2rem;
+  }
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+  }
+  .progress-area {
+    margin: 12px 0;
+  }
+  .barra-modern {
+    background: #1E293B;
+    height: 10px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+  .progresso-modern {
+    background: linear-gradient(90deg, #10B981, #22C55E);
+    width: 0%;
+    height: 100%;
+    border-radius: 12px;
+    transition: width 0.3s;
+  }
+  .calendario-modern {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+    gap: 6px;
+    margin: 15px 0 12px;
+    max-height: 180px;
+    overflow-y: auto;
+    padding: 4px 2px;
+  }
+  .dia-item {
+    background: #1E293B;
+    text-align: center;
+    padding: 6px 2px;
+    border-radius: 14px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    transition: 0.1s;
+    cursor: default;
+  }
+  .dia-pago {
+    background: #10B981;
+    color: white;
+    box-shadow: 0 2px 6px rgba(16,185,129,0.3);
+  }
+  .dia-atrasado {
+    background: #EF4444;
+    color: white;
+  }
+  .dia-futuro {
+    background: #2D3A5E;
+    color: #94A3B8;
+  }
+  .acoes-card {
+    display: flex;
+    gap: 8px;
     margin-top: 16px;
-    padding: 10px;
-    font-size: 0.85rem;
-    border-radius: 60px;
-    background: #2563eb;
-}
-
-.botao-salvar-cliente:active {
-    background: #1d4ed8;
-}
-
-.saldo-info {
-    font-size: 0.85rem;
-    background: #00000040;
-    border-radius: 20px;
-    padding: 8px 12px;
-    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .btn-action {
+    flex: 1;
+    background: #1E293B;
+    border: none;
+    padding: 8px;
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #E2E8F0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .btn-pago {
+    background: #10B981;
+    color: white;
+  }
+  .btn-atraso {
+    background: #F97316;
+    color: white;
+  }
+  .btn-excluir {
+    background: #DC2626;
+    color: white;
+  }
+  .btn-wpp {
+    background: #25D366;
+    color: white;
+  }
+  .btn-limite {
+    background: #8B5CF6;
+    color: white;
+  }
+  .btn-limpar {
+    background: #F59E0B;
+    color: white;
+  }
+  .btn-editar {
+    background: #06B6D4;
+    color: white;
+  }
+  .btn-action:hover {
+    filter: brightness(1.05);
+    transform: scale(0.98);
+  }
+  .empty-state {
     text-align: center;
-}
-
-hr {
-    border-color: #2d2f3e;
-    margin: 5px 0;
-}
-
-@media (max-width: 480px) {
-    .grid-dias {
-        gap: 4px;
+    padding: 3rem;
+    background: #111827;
+    border-radius: 40px;
+    color: #64748B;
+  }
+  footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.75rem;
+    color: #475569;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-content {
+    background: #111827;
+    border-radius: 28px;
+    padding: 2rem;
+    max-width: 550px;
+    width: 90%;
+    border: 1px solid #3B82F6;
+    box-shadow: 0 25px 45px rgba(0,0,0,0.5);
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  .modal-content h3 {
+    margin-bottom: 1.5rem;
+    color: #F1F5F9;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .modal-content input, .modal-content select {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .modal-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .modal-buttons button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 40px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-confirm {
+    background: #3B82F6;
+    color: white;
+  }
+  .btn-cancel {
+    background: #1E293B;
+    color: #94A3B8;
+  }
+  .btn-reset {
+    background: #F59E0B;
+    color: white;
+  }
+  .warning-text {
+    color: #FBBF24;
+    font-size: 0.75rem;
+    margin: 8px 0;
+    padding: 8px;
+    background: rgba(245, 158, 11, 0.1);
+    border-radius: 12px;
+  }
+  
+  @media (max-width: 640px) {
+    .clientes-grid {
+      grid-template-columns: 1fr;
     }
-    .day span {
-        font-size: 9px;
+    .app-container {
+      padding: 1rem;
     }
-}
+  }
 </style>
 </head>
 <body>
-<div class="container">
-    <h2>💸 Controle de Cobranças</h2>
-    <div class="sub">Marque os dias pagos · Valor residual reduz automaticamente</div>
 
-    <div class="form-card">
-        <div class="input-group">
-            <label>🧑 Nome completo</label>
-            <input type="text" id="nome" placeholder="Ex: Ana Silva" autocomplete="off">
-        </div>
-        <div class="input-group">
-            <label>💰 Valor emprestado (R$)</label>
-            <input type="number" id="valor" placeholder="0,00" step="any">
-        </div>
-        <div class="input-group">
-            <label>📈 Juros (%)</label>
-            <input type="number" id="juros" placeholder="Ex: 10" step="any">
-        </div>
-        <div class="input-group">
-            <label>🗓️ Prazo (dias)</label>
-            <select id="dias">
-                <option value="25">25 dias</option>
-                <option value="30" selected>30 dias</option>
-                <option value="45">45 dias</option>
-            </select>
-        </div>
-        <button onclick="criarCliente()">➕ Criar Cobrança</button>
+<header class="header-pro">
+  <div class="header-content">
+    <div class="logo-area">
+      <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
+      <div class="logo-text">
+        <h1>Fixa agiota-bank PRO</h1>
+        <span>Gestão inteligente de parcelas</span>
+      </div>
     </div>
+    <div class="stats-badge" id="globalStats">
+      <i class="fas fa-users"></i> <span id="totalClientesCount">0</span> clientes
+      <i class="fas fa-coins" style="margin-left: 8px;"></i> <span id="receitaTotal">R$ 0</span>
+    </div>
+  </div>
+</header>
 
-    <!-- Botão salvar global (salva todo estado manualmente) -->
-    <button class="btn-salvar-global" onclick="salvarGlobalManual()">💾 Salvar todas as alterações</button>
+<div class="app-container">
+  <div class="card-form">
+    <div class="section-title">
+      <i class="fas fa-user-plus"></i> 
+      <span>Novo Cliente</span>
+    </div>
+    <div class="form-grid">
+      <div class="input-group"><label><i class="fas fa-user"></i> Nome completo</label><input id="nome" placeholder="Ex: Ana Silva" autocomplete="off"></div>
+      <div class="input-group"><label><i class="fab fa-whatsapp"></i> WhatsApp</label><input id="whatsapp" placeholder="11999999999"></div>
+      <div class="input-group"><label><i class="fas fa-building"></i> Loja</label><input id="loja" placeholder="Ex: Loja Centro"></div>
+      <div class="input-group"><label><i class="fas fa-map-marker-alt"></i> Endereço</label><input id="endereco" placeholder="Rua, nº"></div>
+      <div class="input-group"><label><i class="fas fa-location-dot"></i> Bairro</label><input id="bairro" placeholder="Ex: Jardim América"></div>
+      <div class="input-group"><label><i class="fas fa-dollar-sign"></i> Valor total (R$)</label><input id="valor" type="number" placeholder="0,00" step="0.01"></div>
+      <div class="input-group"><label><i class="fas fa-percent"></i> Juros (%)</label><input id="juros" type="number" placeholder="0" step="0.1" value="0"></div>
+      <div class="input-group"><label><i class="fas fa-chart-simple"></i> Limite de crédito (R$)</label><input id="limite" type="number" placeholder="Limite inicial" step="0.01" value="500"></div>
+      <div class="input-group"><label><i class="fas fa-calendar-week"></i> Dias do plano</label>
+        <select id="diasPlano">
+          <option value="15">15 dias (quinzenal)</option><option value="20">20 dias</option><option value="24">24 dias</option>
+          <option value="25">25 dias</option><option value="30" selected>30 dias (mensal)</option><option value="46">46 dias</option>
+        </select>
+      </div>
+      <<div class="input-group" style="justify-content: flex-end; display: flex;"><button id="btnSalvar" class="btn-primary"><i class="fas fa-save"></i> Salvar Cliente</button></div>
+    </div>
+  </div>
 
-    <div id="lista" class="lista-cobrancas"></div>
+  <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 1rem;">
+    <div class="section-title" style="margin-bottom: 0;"><i class="fas fa-users-viewfinder"></i> Clientes Ativos</div>
+    <small style="color:#6B7280;"><i class="fas fa-arrow-trend-down"></i> 3 pagamentos em dia: +3% limite | 2 atrasos: -3% limite</small>
+  </div>
+  <div id="listaClientes" class="clientes-grid"></div>
 </div>
 
+<!-- Modal para editar cliente -->
+<div id="modalEditar" class="modal">
+  <div class="modal-content">
+    <h3><i class="fas fa-user-edit"></i> Editar Cliente</h3>
+    <div class="input-group"><label><i class="fas fa-user"></i> Nome completo</label><input id="editNome" placeholder="Nome"></div>
+    <div class="input-group"><label><i class="fab fa-whatsapp"></i> WhatsApp</label><input id="editWhatsapp" placeholder="WhatsApp"></div>
+    <div class="input-group"><label><i class="fas fa-building"></i> Loja</label><input id="editLoja" placeholder="Loja"></div>
+    <div class="input-group"><label><i class="fas fa-map-marker-alt"></i> Endereço</label><input id="editEndereco" placeholder="Endereço"></div>
+    <div class="input-group"><label><i class="fas fa-location-dot"></i> Bairro</label><input id="editBairro" placeholder="Bairro"></div>
+    <div class="input-group"><label><i class="fas fa-dollar-sign"></i> Valor total (R$)</label><input id="editValor" type="number" step="0.01" placeholder="Valor"></div>
+    <div class="input-group"><label><i class="fas fa-percent"></i> Juros (%)</label><input id="editJuros" type="number" step="0.1" placeholder="Juros"></div>
+    <div class="input-group"><label><i class="fas fa-calendar-week"></i> Dias do plano</label>
+      <select id="editDiasPlano">
+        <option value="15">15 dias (quinzenal)</option><option value="20">20 dias</option><option value="24">24 dias</option>
+        <option value="25">25 dias</option><option value="30">30 dias (mensal)</option><option value="46">46 dias</option>
+      </select>
+    </div>
+    <div class="warning-text">
+      <i class="fas fa-exclamation-triangle"></i> Atenção: Alterar valor, juros ou dias do plano irá recalcular todas as parcelas e reiniciar o contrato!
+    </div>
+    <div class="modal-buttons">
+      <button class="btn-cancel" id="btnCancelarEditar">Cancelar</button>
+      <button class="btn-confirm" id="btnConfirmarEditar">Salvar Alterações</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para atualizar limite e limpar pagamentos -->
+<div id="modalLimite" class="modal">
+  <div class="modal-content">
+    <h3><i class="fas fa-credit-card"></i> Gerenciar Cliente</h3>
+    <p style="margin-bottom: 12px; color: #94A3B8;">Cliente: <strong id="modalClienteNome"></strong></p>
+    <label style="font-size: 0.75rem; color: #9CA3AF;">Novo Limite (R$)</label>
+    <input type="number" id="novoLimiteInput" step="0.01" placeholder="Digite o novo limite">
+    
+    <div class="warning-text">
+      <i class="fas fa-exclamation-triangle"></i> Opção de limpeza:
+    </div>
+    <button id="btnLimparPagamentos" class="btn-action btn-limpar" style="width: 100%; margin-bottom: 15px;">
+      <i class="fas fa-eraser"></i> LIMPAR TODOS OS PAGAMENTOS
+    </button>
+    <p style="font-size: 0.7rem; color: #FBBF24; margin-bottom: 15px;">
+      ⚠️ Isso irá resetar todas as marcações de pagamento/atraso para reiniciar o contrato.
+    </p>
+    
+    <div class="modal-buttons">
+      <button class="btn-cancel" id="btnCancelarModal">Cancelar</button>
+      <button class="btn-confirm" id="btnConfirmarLimite">Atualizar Limite</button>
+    </div>
+  </div>
+</div>
+
+<footer>© Fixa agiota-bank PRO — Controle inteligente de parcelamento
+© criador Jailson F Andrade
+J`F </footer>
+
 <script>
-// ------------------- MODEL -------------------
-let dados = []; 
+  let clientes = JSON.parse(localStorage.getItem("clientes_professional")) || [];
+  let clienteEditandoLimite = null;
+  let clienteEditandoDados = null;
 
-// Carregar do localStorage
-function carregarDados() {
-    const stored = localStorage.getItem("clientes_cobranca_v2");
-    if(stored) {
-        try {
-            let parsed = JSON.parse(stored);
-            // garantir estrutura correta para 'pagos' e também armazenar 'valorParcelaDiaria' e 'saldoAtual' para cada cliente
-            if(Array.isArray(parsed)) {
-                dados = parsed.map(cli => {
-                    // Recriar compatibilidade: se não tiver saldoAtual, calcular com base nos pagamentos
-                    if(cli.saldoAtual === undefined) {
-                        let totalOriginal = calcularTotal(cli.valor, cli.juros);
-                        let qtdPaga = (cli.pagos || []).filter(p => p === true).length;
-                        let valorParcela = cli.valorParcelaDiaria || (totalOriginal / cli.dias);
-                        let saldoCalc = totalOriginal - (qtdPaga * valorParcela);
-                        cli.saldoAtual = Math.max(0, saldoCalc);
-                    }
-                    if(!cli.valorParcelaDiaria) {
-                        let totalOrig = calcularTotal(cli.valor, cli.juros);
-                        cli.valorParcelaDiaria = totalOrig / cli.dias;
-                    }
-                    if(!cli.pagos) cli.pagos = Array(cli.dias).fill(false);
-                    // garantir tamanho correto do array pagos caso dias tenha mudado (evitar bugs)
-                    if(cli.pagos.length !== cli.dias) {
-                        let newPagos = Array(cli.dias).fill(false);
-                        for(let i=0; i<Math.min(cli.pagos.length, cli.dias); i++) {
-                            if(cli.pagos[i]) newPagos[i] = true;
-                        }
-                        cli.pagos = newPagos;
-                        // recalcular saldo
-                        let totalOrig = calcularTotal(cli.valor, cli.juros);
-                        let parcela = totalOrig / cli.dias;
-                        let pagas = newPagos.filter(v=>v===true).length;
-                        cli.saldoAtual = totalOrig - (pagas * parcela);
-                        cli.valorParcelaDiaria = parcela;
-                    }
-                    return cli;
-                });
-            }
-        } catch(e) { console.warn(e); dados = []; }
+  const nomeInput = document.getElementById("nome");
+  const whatsappInput = document.getElementById("whatsapp");
+  const lojaInput = document.getElementById("loja");
+  const enderecoInput = document.getElementById("endereco");
+  const bairroInput = document.getElementById("bairro");
+  const valorInput = document.getElementById("valor");
+  const jurosInput = document.getElementById("juros");
+  const limiteInput = document.getElementById("limite");
+  const diasPlanoSelect = document.getElementById("diasPlano");
+  const btnSalvar = document.getElementById("btnSalvar");
+  const listaDiv = document.getElementById("listaClientes");
+  const modalLimite = document.getElementById("modalLimite");
+  const modalEditar = document.getElementById("modalEditar");
+  const novoLimiteInput = document.getElementById("novoLimiteInput");
+  const modalClienteNome = document.getElementById("modalClienteNome");
+
+  function atualizarStatsGlobais() {
+    const totalClientes = clientes.length;
+    const receitaTotal = clientes.reduce((acc, c) => acc + (c.total || 0), 0);
+    document.getElementById("totalClientesCount").innerText = totalClientes;
+    document.getElementById("receitaTotal").innerHTML = `R$ ${receitaTotal.toFixed(2)}`;
+  }
+
+  function persistirErender() {
+    localStorage.setItem("clientes_professional", JSON.stringify(clientes));
+    renderizarClientes();
+    atualizarStatsGlobais();
+  }
+
+  function getValorDia(cliente) {
+    if (!cliente.diasTotal || cliente.diasTotal === 0) return 0;
+    return cliente.total / cliente.diasTotal;
+  }
+
+  // Função para contar pagamentos consecutivos em dia
+  function contarPagamentosConsecutivos(diasArray) {
+    let consecutivos = 0;
+    for (let i = diasArray.length - 1; i >= 0; i--) {
+      if (diasArray[i] === 'pago') {
+        consecutivos++;
+      } else {
+        break;
+      }
     }
-    if(!dados.length) dados = [];
-    render();
-}
+    return consecutivos;
+  }
 
-function salvar() {
-    localStorage.setItem("clientes_cobranca_v2", JSON.stringify(dados));
-    // Após salvar, mostrar feedback rápido (opcional)
-    showToast("✅ Alterações salvas");
-}
-
-function showToast(msg) {
-    let toast = document.createElement("div");
-    toast.innerText = msg;
-    toast.style.position = "fixed";
-    toast.style.bottom = "20px";
-    toast.style.left = "50%";
-    toast.style.transform = "translateX(-50%)";
-    toast.style.backgroundColor = "#10b981";
-    toast.style.color = "white";
-    toast.style.padding = "8px 20px";
-    toast.style.borderRadius = "40px";
-    toast.style.fontWeight = "bold";
-    toast.style.zIndex = "999";
-    toast.style.fontSize = "0.8rem";
-    toast.style.boxShadow = "0 4px 12px black";
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 1800);
-}
-
-function calcularTotal(valor, juros) {
-    return valor + (valor * (juros / 100));
-}
-
-// Função para recalcular saldo atual de um cliente baseado nos dias pagos
-function recalcularSaldoCliente(cliente) {
-    let totalDevido = calcularTotal(cliente.valor, cliente.juros);
-    let parcelaDiaria = cliente.valorParcelaDiaria;
-    if (!parcelaDiaria || isNaN(parcelaDiaria)) {
-        parcelaDiaria = totalDevido / cliente.dias;
-        cliente.valorParcelaDiaria = parcelaDiaria;
+  // Função para contar atrasos consecutivos
+  function contarAtrasosConsecutivos(diasArray) {
+    let consecutivos = 0;
+    for (let i = diasArray.length - 1; i >= 0; i--) {
+      if (diasArray[i] === 'atrasado') {
+        consecutivos++;
+      } else {
+        break;
+      }
     }
-    let diasPagos = cliente.pagos.filter(p => p === true).length;
-    let valorPagoTotal = diasPagos * parcelaDiaria;
-    let novoSaldo = totalDevido - valorPagoTotal;
-    cliente.saldoAtual = Math.max(0, novoSaldo);
-    return cliente.saldoAtual;
-}
+    return consecutivos;
+  }
 
-// toggle de pagamento do dia
-function toggleDia(clienteIndex, diaIndex) {
-    let cliente = dados[clienteIndex];
-    // Evita marcar duas vezes sem necessidade, apenas alterna
-    let novoEstado = !cliente.pagos[diaIndex];
-    cliente.pagos[diaIndex] = novoEstado;
+  // Função para aplicar animação no badge de limite
+  function animarBadgeLimite(elemento) {
+    if (elemento) {
+      elemento.classList.add('atualizando');
+      setTimeout(() => {
+        elemento.classList.remove('atualizando');
+      }, 500);
+    }
+  }
+
+  // Função para verificar e aplicar bônus de 3% a cada 3 pagamentos em dia
+  function verificarBonusPagamentos(cliente, index) {
+    if (!cliente.ultimoBonusRegistrado) {
+      cliente.ultimoBonusRegistrado = 0;
+    }
     
-    // Recalcula saldo após alteração
-    recalcularSaldoCliente(cliente);
+    const pagamentosConsecutivos = contarPagamentosConsecutivos(cliente.dias);
+    const bonusAtingido = Math.floor(pagamentosConsecutivos / 3);
+    const bonusNovo = bonusAtingido;
     
-    // Salva automaticamente CADA VEZ que marca/desmarca um quadrado (conforme solicitado: "salvar cobrança toda vez que marca uma cobrança")
-    salvar();
+    if (bonusNovo > cliente.ultimoBonusRegistrado) {
+      const qtdBonus = bonusNovo - cliente.ultimoBonusRegistrado;
+      const aumentoPercentual = qtdBonus * 3;
+      const limiteAntigo = cliente.limite;
+      const aumento = limiteAntigo * (aumentoPercentual / 100);
+      cliente.limite = limiteAntigo + aumento;
+      cliente.ultimoBonusRegistrado = bonusNovo;
+      
+      // Mostrar alerta com o aumento
+      alert(`🎉 BÔNUS CONCEDIDO!\n\n${cliente.nome} atingiu ${pagamentosConsecutivos} pagamentos consecutivos em dia!\n+${aumentoPercentual}% de aumento no limite!\n\nLimite anterior: R$ ${limiteAntigo.toFixed(2)}\nNovo limite: R$ ${cliente.limite.toFixed(2)}`);
+      
+      persistirErender();
+      return true;
+    }
+    return false;
+  }
+
+  // Função para verificar e aplicar penalidade de 3% a cada 2 atrasos
+  function verificarPenalidadeAtrasos(cliente, index) {
+    if (!cliente.ultimaPenalidadeRegistrada) {
+      cliente.ultimaPenalidadeRegistrada = 0;
+    }
     
-    // Re-renderiza para atualizar valores na tela e mostrar o valor da cobrança no quadrado
-    render();
-}
-
-// Função de salvar manual global
-function salvarGlobalManual() {
-    salvar();
-}
-
-function criarCliente() {
-    let nome = document.getElementById("nome").value.trim();
-    let valor = parseFloat(document.getElementById("valor").value);
-    let juros = parseFloat(document.getElementById("juros").value);
-    let dias = parseInt(document.getElementById("dias").value);
-
-    if (!nome) {
-        alert("Por favor, informe o nome do cliente.");
-        return;
-    }
-    if (isNaN(valor) || valor <= 0) {
-        alert("Valor emprestado deve ser maior que zero.");
-        return;
-    }
-    if (isNaN(juros) || juros < 0) {
-        alert("Juros deve ser um número válido (0 ou mais).");
-        return;
-    }
-    if (isNaN(dias) || dias < 1) {
-        alert("Prazo inválido.");
-        return;
-    }
-
-    let totalComJuros = calcularTotal(valor, juros);
-    let valorParcelaDiaria = totalComJuros / dias;
+    const atrasosConsecutivos = contarAtrasosConsecutivos(cliente.dias);
+    const penalidadeAtingida = Math.floor(atrasosConsecutivos / 2);
+    const penalidadeNova = penalidadeAtingida;
     
-    let novoCliente = {
-        nome: nome,
-        valor: valor,
-        juros: juros,
-        total: totalComJuros,
-        dias: dias,
-        pagos: Array(dias).fill(false),
-        saldoAtual: totalComJuros,   // saldo inicial = total com juros
-        valorParcelaDiaria: valorParcelaDiaria
+    if (penalidadeNova > cliente.ultimaPenalidadeRegistrada) {
+      const qtdPenalidade = penalidadeNova - cliente.ultimaPenalidadeRegistrada;
+      const reducaoPercentual = qtdPenalidade * 3;
+      const limiteAntigo = cliente.limite;
+      const reducao = limiteAntigo * (reducaoPercentual / 100);
+      cliente.limite = limiteAntigo - reducao;
+      if (cliente.limite < 0) cliente.limite = 0;
+      cliente.ultimaPenalidadeRegistrada = penalidadeNova;
+      
+      alert(`⚠️ PENALIDADE APLICADA!\n\n${cliente.nome} atingiu ${atrasosConsecutivos} atrasos consecutivos!\n-${reducaoPercentual}% de redução no limite!\n\nLimite anterior: R$ ${limiteAntigo.toFixed(2)}\nNovo limite: R$ ${cliente.limite.toFixed(2)}`);
+      
+      persistirErender();
+      return true;
+    }
+    return false;
+  }
+
+  function marcarPagamento(clienteId, indexDia, status) {
+    const cliente = clientes.find(c => c.id === clienteId);
+    if (cliente) {
+      if (status === 'pago') {
+        cliente.dias[indexDia] = 'pago';
+      } else if (status === 'atrasado') {
+        cliente.dias[indexDia] = 'atrasado';
+      }
+      
+      persistirErender();
+      
+      // Após marcar, verificar bônus e penalidades
+      const indexCliente = clientes.findIndex(c => c.id === clienteId);
+      verificarBonusPagamentos(cliente, indexCliente);
+      verificarPenalidadeAtrasos(cliente, indexCliente);
+      
+      // Atualizar a renderização novamente após possíveis mudanças de limite
+      renderizarClientes();
+    }
+  }
+
+  function excluirCliente(id) {
+    if(confirm("Tem certeza que deseja excluir este cliente permanentemente?")) {
+      clientes = clientes.filter(c => c.id !== id);
+      persistirErender();
+    }
+  }
+
+  function limparPagamentosCliente(id) {
+    const cliente = clientes.find(c => c.id === id);
+    if(cliente && confirm(`Limpar TODAS as marcações de pagamento/atraso para ${cliente.nome}? O contrato será reiniciado.`)) {
+      cliente.dias = new Array(cliente.diasTotal).fill('futuro');
+      // Resetar contadores de bônus e penalidade
+      cliente.ultimoBonusRegistrado = 0;
+      cliente.ultimaPenalidadeRegistrada = 0;
+      persistirErender();
+      alert(`Contrato de ${cliente.nome} reiniciado com sucesso!`);
+    }
+  }
+
+  function atualizarLimite(id, novoLimite) {
+    const cliente = clientes.find(c => c.id === id);
+    if(cliente) {
+      cliente.limite = parseFloat(novoLimite);
+      persistirErender();
+      // Animar badge do card correspondente
+      const cardElement = document.querySelector(`.cliente-card[data-id='${id}'] .badge-limite`);
+      animarBadgeLimite(cardElement);
+    }
+  }
+
+  function abrirModalLimite(id) {
+    const cliente = clientes.find(c => c.id === id);
+    if(cliente) {
+      clienteEditandoLimite = id;
+      modalClienteNome.innerText = cliente.nome;
+      novoLimiteInput.value = cliente.limite;
+      modalLimite.style.display = "flex";
+    }
+  }
+
+  function abrirModalEditar(id) {
+    const cliente = clientes.find(c => c.id === id);
+    if(cliente) {
+      clienteEditandoDados = id;
+      document.getElementById("editNome").value = cliente.nome;
+      document.getElementById("editWhatsapp").value = cliente.whatsapp || "";
+      document.getElementById("editLoja").value = cliente.loja || "";
+      document.getElementById("editEndereco").value = cliente.endereco || "";
+      document.getElementById("editBairro").value = cliente.bairro || "";
+      document.getElementById("editValor").value = cliente.total;
+      document.getElementById("editJuros").value = cliente.juros;
+      document.getElementById("editDiasPlano").value = cliente.diasTotal;
+      modalEditar.style.display = "flex";
+    }
+  }
+
+  function salvarEdicaoCliente() {
+    const id = clienteEditandoDados;
+    const index = clientes.findIndex(c => c.id === id);
+    if(index !== -1) {
+      const novoNome = document.getElementById("editNome").value.trim();
+      const novoWhats = document.getElementById("editWhatsapp").value.trim();
+      const novoLoja = document.getElementById("editLoja").value.trim();
+      const novoEnd = document.getElementById("editEndereco").value.trim();
+      const novoBairro = document.getElementById("editBairro").value.trim();
+      const novoValor = parseFloat(document.getElementById("editValor").value);
+      const novoJuros = parseFloat(document.getElementById("editJuros").value);
+      const novosDias = parseInt(document.getElementById("editDiasPlano").value);
+      
+      if(!novoNome || isNaN(novoValor) || novoValor <= 0) {
+        alert("Preencha nome e valor válido.");
+        return;
+      }
+      
+      const clienteAntigo = clientes[index];
+      // Verificar se houve alteração em campos que exigem recálculo
+      if(clienteAntigo.total !== novoValor || clienteAntigo.juros !== novoJuros || clienteAntigo.diasTotal !== novosDias) {
+        if(confirm("Alterar valor, juros ou dias do plano irá recalcular todas as parcelas e reiniciar o contrato. Deseja continuar?")) {
+          const totalComJuros = novoValor * (1 + novoJuros / 100);
+          const novoDiasArray = new Array(novosDias).fill('futuro');
+          clientes[index] = {
+            ...clienteAntigo,
+            nome: novoNome,
+            whatsapp: novoWhats,
+            loja: novoLoja,
+            endereco: novoEnd,
+            bairro: novoBairro,
+            total: novoValor,
+            totalComJuros: totalComJuros,
+            juros: novoJuros,
+            diasTotal: novosDias,
+            dias: novoDiasArray,
+            ultimoBonusRegistrado: 0,
+            ultimaPenalidadeRegistrada: 0
+          };
+        } else {
+          return;
+        }
+      } else {
+        // Apenas atualizar dados cadastrais
+        clientes[index] = {
+          ...clienteAntigo,
+          nome: novoNome,
+          whatsapp: novoWhats,
+          loja: novoLoja,
+          endereco: novoEnd,
+          bairro: novoBairro
+        };
+      }
+      
+      persistirErender();
+      modalEditar.style.display = "none";
+      alert("Cliente atualizado com sucesso!");
+    }
+  }
+
+  function formatarWhatsApp(numero) {
+    let apenasNumeros = numero.replace(/\D/g, '');
+    if (apenasNumeros.length === 11) {
+      return `55${apenasNumeros}`;
+    } else if (apenasNumeros.length === 10) {
+      return `55${apenasNumeros}`;
+    }
+    return `55${apenasNumeros}`;
+  }
+
+  function enviarWhatsApp(cliente) {
+    let telefone = cliente.whatsapp || '';
+    if(!telefone) {
+      alert("Número de WhatsApp não cadastrado para este cliente.");
+      return;
+    }
+    let numeroFormatado = formatarWhatsApp(telefone);
+    let diasAtrasados = 0;
+    let diasPagos = 0;
+    const hoje = new Date();
+    for(let i = 0; i < cliente.dias.length; i++) {
+      if(cliente.dias[i] === 'atrasado') diasAtrasados++;
+      if(cliente.dias[i] === 'pago') diasPagos++;
+    }
+    let mensagem = `Olá ${cliente.nome}, tudo bem? Aqui é da loja ${cliente.loja || 'Finança PRO'}. `;
+    mensagem += `Seu plano de R$ ${cliente.total.toFixed(2)} com ${cliente.diasTotal} dias está com ${diasPagos} parcelas pagas e ${diasAtrasados} atrasos. `;
+    mensagem += `Mantenha os pagamentos em dia para garantir seu limite de crédito atual de R$ ${cliente.limite.toFixed(2)}. `;
+    mensagem += `Qualquer dúvida, estamos à disposição!`;
+    let url = `https://wa.me/${numeroFormatado}?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, '_blank');
+  }
+
+  function renderizarClientes() {
+    if (!clientes.length) {
+      listaDiv.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open fa-2x"></i><p style="margin-top:12px">Nenhum cliente cadastrado. Adicione um novo cliente acima.</p></div>`;
+      return;
+    }
+    
+    listaDiv.innerHTML = "";
+    clientes.forEach((cliente, idx) => {
+      let diasPagos = cliente.dias.filter(d => d === 'pago').length;
+      let progresso = (diasPagos / cliente.diasTotal) * 100;
+      let valorDia = getValorDia(cliente);
+      let totalPago = diasPagos * valorDia;
+      let saldoDevedor = cliente.totalComJuros - totalPago;
+      
+      const card = document.createElement("div");
+      card.className = "cliente-card";
+      card.setAttribute("data-id", cliente.id);
+      
+      // Endereço completo para exibição
+      const enderecoCompleto = [cliente.endereco, cliente.bairro].filter(Boolean).join(", ");
+      
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="cliente-nome"><i class="fas fa-user-circle"></i> ${cliente.nome}</div>
+          <div class="badge-limite"><i class="fas fa-credit-card"></i> Limite: R$ ${cliente.limite.toFixed(2)}</div>
+        </div>
+        <div class="card-body">
+          <div class="info-row"><span><i class="fab fa-whatsapp"></i> ${cliente.whatsapp || 'Não informado'}</span><span><i class="fas fa-store"></i> Loja: ${cliente.loja || 'N/A'}</span></div>
+          <div class="info-row"><span><i class="fas fa-map-marker-alt"></i> ${enderecoCompleto || 'Endereço não informado'}</span></div>
+          <div class="info-row"><span><i class="fas fa-dollar-sign"></i> Valor: R$ ${cliente.total.toFixed(2)}</span><span>${cliente.juros > 0 ? `+${cliente.juros}% juros` : 'Sem juros'}</span></div>
+          <div class="info-row"><span><i class="fas fa-chart-line"></i> Total c/ juros: R$ ${cliente.totalComJuros.toFixed(2)}</span><span>Dias: ${cliente.diasTotal}</span></div>
+          <div class="info-row"><span><i class="fas fa-coins"></i> Pago: R$ ${totalPago.toFixed(2)}</span><span>Saldo: R$ ${saldoDevedor.toFixed(2)}</span></div>
+          <div class="progress-area"><div class="barra-modern"><div class="progresso-modern" style="width: ${progresso}%;"></div></div><div style="font-size:0.7rem; margin-top:4px;">${diasPagos}/${cliente.diasTotal} parcelas</div></div>
+          <div class="calendario-modern" id="calendario-${cliente.id}"></div>
+          <div class="acoes-card">
+            <button class="btn-action btn-pago" data-acao="pago"><i class="fas fa-check-circle"></i> PAGO</button>
+            <button class="btn-action btn-atraso" data-acao="atraso"><i class="fas fa-clock"></i> ATRASO</button>
+            <button class="btn-action btn-wpp" data-acao="wpp"><i class="fab fa-whatsapp"></i> MSG</button>
+            <button class="btn-action btn-limite" data-acao="limite"><i class="fas fa-chart-simple"></i> LIMITE</button>
+            <button class="btn-action btn-editar" data-acao="editar"><i class="fas fa-pen"></i> EDITAR</button>
+            <button class="btn-action btn-excluir" data-acao="excluir"><i class="fas fa-trash-alt"></i> EXCLUIR</button>
+          </div>
+        </div>
+      `;
+      
+      listaDiv.appendChild(card);
+      const calendarioDiv = document.getElementById(`calendario-${cliente.id}`);
+      if (calendarioDiv) {
+        for (let i = 0; i < cliente.dias.length; i++) {
+          const diaSpan = document.createElement("div");
+          diaSpan.className = `dia-item ${cliente.dias[i] === 'pago' ? 'dia-pago' : (cliente.dias[i] === 'atrasado' ? 'dia-atrasado' : 'dia-futuro')}`;
+          diaSpan.innerText = i + 1;
+          diaSpan.addEventListener("click", (function(indice) {
+            return function() { 
+              const novoStatus = cliente.dias[indice] === 'pago' ? 'futuro' : (cliente.dias[indice] === 'atrasado' ? 'futuro' : prompt("Marcar como 'pago' ou 'atrasado'?", "pago"));
+              if(novoStatus === 'pago') marcarPagamento(cliente.id, indice, 'pago');
+              else if(novoStatus === 'atrasado') marcarPagamento(cliente.id, indice, 'atrasado');
+            };
+          })(i));
+          calendarioDiv.appendChild(diaSpan);
+        }
+      }
+      
+      const botoes = card.querySelectorAll("[data-acao]");
+      botoes.forEach(btn => {
+        const acao = btn.getAttribute("data-acao");
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if(acao === "pago") {
+            const ultimoNaoPago = cliente.dias.reduceRight((acc, status, idx) => {
+              if(acc === -1 && (status === 'futuro' || status === 'atrasado')) return idx;
+              return acc;
+            }, -1);
+            if(ultimoNaoPago !== -1) marcarPagamento(cliente.id, ultimoNaoPago, 'pago');
+            else alert("Todos os dias já estão pagos!");
+          }
+          else if(acao === "atraso") {
+            const ultimoNaoAtrasado = cliente.dias.reduceRight((acc, status, idx) => {
+              if(acc === -1 && (status === 'futuro' || status === 'pago')) return idx;
+              return acc;
+            }, -1);
+            if(ultimoNaoAtrasado !== -1) marcarPagamento(cliente.id, ultimoNaoAtrasado, 'atrasado');
+            else alert("Todos os dias já estão com atraso ou pagos?");
+          }
+          else if(acao === "wpp") enviarWhatsApp(cliente);
+          else if(acao === "limite") abrirModalLimite(cliente.id);
+          else if(acao === "editar") abrirModalEditar(cliente.id);
+          else if(acao === "excluir") excluirCliente(cliente.id);
+        });
+      });
+    });
+  }
+
+  // Eventos Globais
+  btnSalvar.addEventListener("click", () => {
+    const nome = nomeInput.value.trim();
+    const whatsapp = whatsappInput.value.trim();
+    const loja = lojaInput.value.trim();
+    const endereco = enderecoInput.value.trim();
+    const bairro = bairroInput.value.trim();
+    const valor = parseFloat(valorInput.value);
+    const juros = parseFloat(jurosInput.value) || 0;
+    const limite = parseFloat(limiteInput.value);
+    const diasTotal = parseInt(diasPlanoSelect.value);
+    
+    if (!nome || isNaN(valor) || valor <= 0) {
+      alert("Preencha o nome e um valor válido.");
+      return;
+    }
+    
+    const totalComJuros = valor * (1 + juros / 100);
+    const novoId = Date.now();
+    const diasArray = new Array(diasTotal).fill('futuro');
+    
+    const novoCliente = {
+      id: novoId,
+      nome,
+      whatsapp,
+      loja,
+      endereco,
+      bairro,
+      total: valor,
+      totalComJuros: totalComJuros,
+      juros: juros,
+      limite: limite,
+      diasTotal: diasTotal,
+      dias: diasArray,
+      ultimoBonusRegistrado: 0,
+      ultimaPenalidadeRegistrada: 0
     };
     
-    dados.push(novoCliente);
-    salvar();
-    render();
-    
-    // limpar campos opcionais mas manter para facilitar
-    document.getElementById("nome").value = "";
-    document.getElementById("valor").value = "";
-    document.getElementById("juros").value = "";
-}
-
-// Renderização completa mostrando: valor do empréstimo com juros, valor de cada cobrança no quadrado, e saldo diminuindo
-function render() {
-    let listaDiv = document.getElementById("lista");
-    listaDiv.innerHTML = "";
-    
-    dados.forEach((cliente, idx) => {
-        // Recalcular saldo atual por segurança
-        let totalDevido = cliente.total; // valor + juros
-        let parcela = cliente.valorParcelaDiaria;
-        if (!parcela || isNaN(parcela) || parcela === 0) {
-            parcela = totalDevido / cliente.dias;
-            cliente.valorParcelaDiaria = parcela;
-        }
-        let diasPagos = cliente.pagos.filter(p => p === true).length;
-        let valorJaPago = diasPagos * parcela;
-        let saldoRestante = totalDevido - valorJaPago;
-        if(saldoRestante < 0) saldoRestante = 0;
-        cliente.saldoAtual = saldoRestante;
-        
-        // Criação do card
-        let card = document.createElement("div");
-        card.className = "card";
-        
-        // Cabeçalho
-        let headerDiv = document.createElement("div");
-        headerDiv.className = "card-header";
-        headerDiv.innerHTML = `
-            <span class="cliente-nome">${escapeHtml(cliente.nome)}</span>
-            <span style="font-size:0.75rem; background:#1f2a3e; padding:4px 10px; border-radius:20px;">📅 ${cliente.dias} dias</span>
-        `;
-        card.appendChild(headerDiv);
-        
-        // Resumo com valor do empréstimo já com juros EM CIMA do valor (destacado)
-        let resumoDiv = document.createElement("div");
-        resumoDiv.className = "resumo-valores";
-        resumoDiv.innerHTML = `
-            <div class="resumo-item">
-                <div class="label-peq">💰 Empréstimo</div>
-                <div class="valor-destaque" style="color:#c084fc;">R$ ${cliente.valor.toFixed(2)}</div>
-            </div>
-            <div class="resumo-item">
-                <div class="label-peq">📈 + Juros (${cliente.juros}%)</div>
-                <div class="valor-destaque" style="color:#facc15;">R$ ${(cliente.total - cliente.valor).toFixed(2)}</div>
-            </div>
-            <div class="resumo-item">
-                <div class="label-peq">💵 TOTAL COM JUROS</div>
-                <div class="valor-destaque" style="color:#4ade80; font-size:1.3rem;">R$ ${totalDevido.toFixed(2)}</div>
-            </div>
-        `;
-        card.appendChild(resumoDiv);
-        
-        // Valor da parcela diária (cobrança por dia)
-        let parcelaInfo = document.createElement("div");
-        parcelaInfo.style.backgroundColor = "#0b0e17";
-        parcelaInfo.style.borderRadius = "20px";
-        parcelaInfo.style.padding = "8px 12px";
-        parcelaInfo.style.margin = "12px 0 6px";
-        parcelaInfo.style.fontSize = "0.8rem";
-        parcelaInfo.style.display = "flex";
-        parcelaInfo.style.justifyContent = "space-between";
-        parcelaInfo.innerHTML = `
-            <span>💸 Valor por dia (cobrança):</span>
-            <strong style="color:#facc15;">R$ ${parcela.toFixed(2)}</strong>
-        `;
-        card.appendChild(parcelaInfo);
-        
-        // Saldo restante com diminuição dinâmica
-        let saldoBlock = document.createElement("div");
-        saldoBlock.className = "saldo-info";
-        saldoBlock.innerHTML = `
-            🟢 VALOR RESTANTE A PAGAR: <strong style="font-size:1.2rem; color:#fb923c;">R$ ${saldoRestante.toFixed(2)}</strong>
-            ${diasPagos > 0 ? `<span style="margin-left:12px;">✔️ ${diasPagos} dia(s) pago(s)</span>` : ''}
-        `;
-        card.appendChild(saldoBlock);
-        
-        // Grid de dias (quadrados)
-        let grid = document.createElement("div");
-        grid.className = "grid-dias";
-        
-        for(let d = 0; d < cliente.dias; d++) {
-            let dayDiv = document.createElement("div");
-            dayDiv.className = "day" + (cliente.pagos[d] ? " active" : "");
-            
-            // Número do dia
-            let numeroSpan = document.createElement("span");
-            numeroSpan.innerText = d+1;
-            dayDiv.appendChild(numeroSpan);
-            
-            // Mostrar o valor da cobrança dentro do quadrado quando estiver marcado (e também sugerir até quando não marcado? mas especificação: "valor da cobrança apareça nos quadrados marcados")
-            if(cliente.pagos[d]) {
-                let valorSpan = document.createElement("span");
-                valorSpan.className = "valor-marcado";
-                valorSpan.innerText = `R$ ${parcela.toFixed(2)}`;
-                dayDiv.appendChild(valorSpan);
-            } else {
-                // Opcional: podemos exibir o valor em tooltip ou pequeno, mas a pedido: "valor da cobrança apareça nos quadrados marcados"
-                // Para melhor UX, também pode exibir mini cifrão? mas não obrigatório. Seguimos apenas marcado.
-                // Porém adicionamos um pequeno sinal de valor pendente?
-                let hintSpan = document.createElement("span");
-                hintSpan.style.position = "absolute";
-                hintSpan.style.bottom = "2px";
-                hintSpan.style.fontSize = "6px";
-                hintSpan.style.opacity = "0.5";
-                hintSpan.innerText = `R$ ${parcela.toFixed(2)}`;
-                dayDiv.appendChild(hintSpan);
-            }
-            
-            dayDiv.onclick = (function(indiceCliente, indiceDia) {
-                return function() { toggleDia(indiceCliente, indiceDia); };
-            })(idx, d);
-            
-            grid.appendChild(dayDiv);
-        }
-        
-        card.appendChild(grid);
-        
-        // Botão de salvar específico para este cliente (salva estado)
-        let btnSalvarCliente = document.createElement("button");
-        btnSalvarCliente.innerText = "💾 Salvar alterações deste cliente";
-        btnSalvarCliente.className = "botao-salvar-cliente";
-        btnSalvarCliente.onclick = (function(index) {
-            return function() { 
-                salvar(); 
-                showToast(`Cobrança de ${dados[index].nome} salva!`);
-            };
-        })(idx);
-        card.appendChild(btnSalvarCliente);
-        
-        listaDiv.appendChild(card);
-    });
-    
-    if(dados.length === 0) {
-        let emptyMsg = document.createElement("div");
-        emptyMsg.className = "card";
-        emptyMsg.style.textAlign = "center";
-        emptyMsg.style.padding = "30px";
-        emptyMsg.innerHTML = "📭 Nenhuma cobrança ativa.<br>Crie sua primeira cobrança acima.";
-        listaDiv.appendChild(emptyMsg);
+    clientes.push(novoCliente);
+    persistirErender();
+    nomeInput.value = "";
+    whatsappInput.value = "";
+    lojaInput.value = "";
+    enderecoInput.value = "";
+    bairroInput.value = "";
+    valorInput.value = "";
+    jurosInput.value = "0";
+    limiteInput.value = "500";
+    diasPlanoSelect.value = "30";
+    alert("Cliente adicionado com sucesso!");
+  });
+  
+  document.getElementById("btnConfirmarLimite").addEventListener("click", () => {
+    if (clienteEditandoLimite) {
+      const novoLimiteVal = parseFloat(novoLimiteInput.value);
+      if (!isNaN(novoLimiteVal) && novoLimiteVal >= 0) {
+        atualizarLimite(clienteEditandoLimite, novoLimiteVal);
+      } else {
+        alert("Digite um valor válido para o limite.");
+      }
+      modalLimite.style.display = "none";
+      clienteEditandoLimite = null;
     }
-}
-
-// Função simples de escape para evitar XSS
-function escapeHtml(str) {
-    if(!str) return '';
-    return str.replace(/[&<>]/g, function(m) {
-        if(m === '&') return '&amp;';
-        if(m === '<') return '&lt;';
-        if(m === '>') return '&gt;';
-        return m;
-    }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-        return c;
-    });
-}
-
-// Inicialização e escuta de eventos
-carregarDados();
-
-// Garantir que quando o usuário clicar em salvar global, também mantenha
-window.salvarGlobalManual = salvarGlobalManual;
-window.criarCliente = criarCliente;
-window.toggleDia = toggleDia; // exposto mas já usado via onclick no render
-
-// Adicional: exportar funções para onclick global funcionar
-window.salvarGlobalManual = function() {
-    salvar();
-    showToast("✅ Todas as cobranças foram salvas!");
-};
-
-// Re-render quando houver mudança vinda de toggle (já chama render)
+  });
+  
+  document.getElementById("btnLimparPagamentos").addEventListener("click", () => {
+    if (clienteEditandoLimite) {
+      limparPagamentosCliente(clienteEditandoLimite);
+      modalLimite.style.display = "none";
+      clienteEditandoLimite = null;
+    }
+  });
+  
+  document.getElementById("btnCancelarModal").addEventListener("click", () => {
+    modalLimite.style.display = "none";
+    clienteEditandoLimite = null;
+  });
+  
+  document.getElementById("btnCancelarEditar").addEventListener("click", () => {
+    modalEditar.style.display = "none";
+    clienteEditandoDados = null;
+  });
+  
+  document.getElementById("btnConfirmarEditar").addEventListener("click", salvarEdicaoCliente);
+  
+  window.onclick = function(e) {
+    if (e.target === modalLimite) modalLimite.style.display = "none";
+    if (e.target === modalEditar) modalEditar.style.display = "none";
+  };
+  
+  renderizarClientes();
+  atualizarStatsGlobais();
 </script>
 </body>
 </html>
