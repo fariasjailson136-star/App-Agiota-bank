@@ -2,267 +2,158 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Agiota-Bank PRO - Automação de Quitação</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agiota-Bank PRO Slim</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
+  :root { --blue: #3B82F6; --dark: #0F172A; --card: #111827; --border: #1E293B; --green: #10B981; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: linear-gradient(135deg, #0B1120 0%, #0F172A 100%); font-family: 'Inter', sans-serif; color: #E2E8F0; padding-bottom: 2rem; }
-  
-  .header-pro { background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(59, 130, 246, 0.3); padding: 1rem 1.5rem; position: sticky; top: 0; z-index: 100; }
-  .header-content { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
-  .logo-icon { background: linear-gradient(145deg, #3B82F6, #2563EB); width: 42px; height: 42px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; }
-  
-  .app-container { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
-  .card-form { background: #111827; border-radius: 28px; padding: 1.5rem; margin-bottom: 2rem; border: 1px solid #1F2937; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-  .input-group { display: flex; flex-direction: column; gap: 6px; }
-  .input-group label { font-size: 0.7rem; color: #94A3B8; text-transform: uppercase; font-weight: 600; }
-  input, select { background: #0F172A; border: 1.5px solid #1E293B; padding: 12px; border-radius: 16px; color: #fff; }
-  
-  .search-container { position: relative; margin: 1.5rem 0; max-width: 500px; }
-  .search-container i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #3B82F6; }
-  .search-container input { width: 100%; padding-left: 45px; background: #111827; height: 50px; border: 1px solid #334155; border-radius: 16px; color: #fff; }
-
-  .btn-primary { background: linear-gradient(95deg, #3B82F6, #2563EB); border: none; font-weight: 700; padding: 14px; border-radius: 40px; color: white; cursor: pointer; width: 100%; margin-top: 15px; }
-  .btn-cancel { background: #374151; margin-top: 5px; }
-
-  .clientes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
-  .cliente-card { background: #0F172A; border-radius: 28px; border: 1px solid #1E293B; overflow: hidden; transition: 0.3s; }
-  .card-header { padding: 1.2rem; border-bottom: 1px solid #1E293B; display: flex; justify-content: space-between; font-weight: bold; background: rgba(30, 41, 59, 0.2); }
-  
-  .stats-mini { display: flex; justify-content: space-between; background: #1E293B; padding: 12px; border-radius: 18px; margin-bottom: 15px; font-size: 0.75rem; border: 1px solid #334155; }
-  .status-badge { padding: 3px 10px; border-radius: 8px; font-weight: 700; font-size: 0.65rem; }
-  .excelente { background: #10B981; } .regular { background: #FBBF24; color: #000; } .risco { background: #EF4444; }
-
-  .calendario-modern { display: grid; grid-template-columns: repeat(auto-fill, minmax(35px, 1fr)); gap: 5px; margin: 15px 0; max-height: 100px; overflow-y: auto; }
-  .dia-item { background: #1E293B; text-align: center; padding: 6px; border-radius: 8px; font-size: 0.7rem; color: #94A3B8; }
-  .dia-pago { background: #10B981; color: white; } .dia-atrasado { background: #EF4444; color: white; }
-  
-  .acoes-card { display: flex; gap: 8px; margin-top: 15px; }
-  .btn-action { flex: 1; border: none; padding: 10px; border-radius: 12px; color: white; font-size: 0.75rem; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; }
-  
-  footer { text-align: center; font-size: 0.75rem; color: #475569; margin-top: 3rem; padding: 20px; }
+  body { background: #0B1120; font-family: 'Inter', sans-serif; color: #E2E8F0; padding-bottom: 2rem; }
+  .header-pro { background: rgba(2,6,23,0.8); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(59,130,246,0.3); padding: 1rem; position: sticky; top: 0; z-index: 100; }
+  .header-content { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+  .app-container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+  .card-form, .cliente-card { background: var(--card); border-radius: 20px; border: 1px solid var(--border); padding: 1.2rem; margin-bottom: 1.5rem; }
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.8rem; }
+  .input-group label { font-size: 0.65rem; color: #94A3B8; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 4px; }
+  input, select { width: 100%; background: var(--dark); border: 1px solid var(--border); padding: 10px; border-radius: 12px; color: #fff; }
+  .btn-primary { background: linear-gradient(95deg, var(--blue), #2563EB); border: none; font-weight: 700; padding: 12px; border-radius: 30px; color: #fff; cursor: pointer; width: 100%; margin-top: 10px; }
+  .search-container { position: relative; margin: 1rem 0; }
+  .search-container i { position: absolute; left: 15px; top: 15px; color: var(--blue); }
+  .search-container input { padding-left: 40px; height: 45px; }
+  .clientes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+  .card-header { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .stats-mini { display: flex; justify-content: space-between; background: var(--border); padding: 10px; border-radius: 12px; margin: 10px 0; font-size: 0.7rem; }
+  .calendario-modern { display: grid; grid-template-columns: repeat(auto-fill, minmax(30px, 1fr)); gap: 4px; margin: 10px 0; max-height: 80px; overflow-y: auto; }
+  .dia-item { background: var(--border); text-align: center; padding: 5px; border-radius: 6px; font-size: 0.65rem; }
+  .dia-pago { background: var(--green); } .dia-atrasado { background: #EF4444; }
+  .acoes-card { display: flex; gap: 5px; margin-top: 10px; }
+  .btn-action { flex: 1; border: none; padding: 8px; border-radius: 10px; color: #fff; font-size: 0.7rem; font-weight: 600; cursor: pointer; }
 </style>
 </head>
 <body>
 
 <header class="header-pro">
   <div class="header-content">
-    <div style="display:flex; align-items:center; gap:12px;">
-      <div class="logo-icon"><i class="fas fa-hand-holding-usd"></i></div>
-      <div class="logo-text"><h1>Agiota-Bank PRO</h1><span>Gestão Cloud 3.0</span></div>
-    </div>
-    <div style="background:#1E293B; padding:8px 18px; border-radius:40px; border: 1px solid #334155;">
-      Receita em Aberto: <span id="receitaTotal" style="color: #3B82F6; font-weight: bold;">R$ 0,00</span>
-    </div>
+    <div style="display:flex; align-items:center; gap:10px;"><i class="fas fa-hand-holding-usd" style="font-size:1.5rem; color:var(--blue)"></i> <h3>Agiota-Bank PRO</h3></div>
+    <div style="font-size:0.9rem">Aberto: <span id="receitaTotal" style="color:var(--blue); font-weight:700">R$ 0,00</span></div>
   </div>
 </header>
 
 <div class="app-container">
   <div class="card-form">
-    <h3 id="formTitle" style="margin-bottom:15px; font-size:1rem; color:#3B82F6;"><i class="fas fa-user-plus"></i> Novo Cliente / Empréstimo</h3>
     <div class="form-grid">
-      <div class="input-group"><label>Nome</label><input id="nome" type="text"></div>
-      <div class="input-group"><label>WhatsApp</label><input id="whatsapp" type="text"></div>
-      <div class="input-group"><label>Endereço (Rua/Nº)</label><input id="endereco" type="text"></div>
-      <div class="input-group"><label>Bairro</label><input id="bairro" type="text"></div>
-      <div class="input-group"><label>Loja</label><input id="loja" type="text"></div>
-      <div class="input-group"><label>Valor (R$)</label><input id="valor" type="number"></div>
-      <div class="input-group"><label>Juros (%)</label><input id="juros" type="number" value="0"></div>
-      <div class="input-group"><label>Limite Crédito (R$)</label><input id="limite" type="number" value="500"></div>
-      <div class="input-group"><label>Plano de Dias</label>
+      <div class="input-group"><label>Nome</label><input id="nome"></div>
+      <div class="input-group"><label>WhatsApp</label><input id="whatsapp"></div>
+      <div class="input-group"><label>Rua/Nº</label><input id="endereco"></div>
+      <div class="input-group"><label>Bairro</label><input id="bairro"></div>
+      <div class="input-group"><label>Loja</label><input id="loja"></div>
+      <div class="input-group"><label>Valor</label><input id="valor" type="number"></div>
+      <div class="input-group"><label>Juros %</label><input id="juros" type="number" value="0"></div>
+      <div class="input-group"><label>Crédito</label><input id="limite" type="number" value="500"></div>
+      <div class="input-group"><label>Plano</label>
         <select id="diasPlano">
-          <option value="0">Apenas Cadastro (Sem Cobrança)</option>
-          <option value="15">15 dias</option>
-          <option value="20">20 dias</option>
-          <option value="24">24 dias</option>
-          <option value="25">25 dias</option>
-          <option value="30" selected>30 dias</option>
-          <option value="45">45 dias</option>
+          <option value="0">Apenas Cadastro</option>
+          <option value="15">15 dias</option><option value="20">20 dias</option>
+          <option value="24">24 dias</option><option value="25">25 dias</option>
+          <option value="30" selected>30 dias</option><option value="45">45 dias</option>
         </select>
       </div>
     </div>
     <button id="btnSalvar" class="btn-primary">Salvar no Sistema</button>
-    <button id="btnCancelarEdicao" class="btn-primary btn-cancel" style="display:none;">Cancelar Edição</button>
+    <button id="btnC" class="btn-primary" style="display:none; background:#374151">Cancelar Edição</button>
   </div>
 
-  <div class="search-container">
-    <i class="fas fa-search"></i>
-    <input type="text" id="inputBusca" placeholder="Pesquisar por nome, loja ou bairro...">
-  </div>
-
+  <div class="search-container"><i class="fas fa-search"></i><input id="inputBusca" placeholder="Pesquisar por nome ou loja..."></div>
   <div id="listaClientes" class="clientes-grid"></div>
 </div>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getDatabase, ref, set, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+  import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDpaVGxnlzONpdRKBT2fCE0-vFGtCQfMxw",
-    authDomain: "agiota-bank.firebaseapp.com",
-    databaseURL: "https://agiota-bank-default-rtdb.firebaseio.com",
-    projectId: "agiota-bank",
-    storageBucket: "agiota-bank.firebasestorage.app",
-    messagingSenderId: "950459455059",
-    appId: "1:950459455059:web:377a3862e6e68d44d498a6"
+  const cfg = { 
+    apiKey: "AIzaSyDpaVGxnlzONpdRKBT2fCE0-vFGtCQfMxw", 
+    authDomain: "agiota-bank.firebaseapp.com", 
+    databaseURL: "https://agiota-bank-default-rtdb.firebaseio.com", 
+    projectId: "agiota-bank" 
   };
 
-  const app = initializeApp(firebaseConfig);
+  const app = initializeApp(cfg);
   const db = getDatabase(app);
-  const clientesRef = ref(db, 'clientes');
+  const clRef = ref(db, 'clientes');
+  let todos = {}, idEd = null;
 
-  let todosClientes = {};
-  let idEdicao = null;
+  const getV = (id) => document.getElementById(id).value;
+  const setV = (id, v) => document.getElementById(id).value = v;
 
   function render(data) {
-    const listaDiv = document.getElementById("listaClientes");
-    listaDiv.innerHTML = "";
-    let totalGeral = 0;
-    const termo = document.getElementById("inputBusca").value.toLowerCase();
+    const list = document.getElementById("listaClientes");
+    list.innerHTML = ""; let total = 0;
+    const term = getV("inputBusca").toLowerCase();
 
-    if (!data) return;
-
-    Object.entries(data).forEach(([id, c]) => {
-      if (!c.nome.toLowerCase().includes(termo) && !c.loja.toLowerCase().includes(termo) && !c.bairro.toLowerCase().includes(termo)) return;
-      
-      const totalEmDivida = c.total || 0;
-      totalGeral += totalEmDivida;
-      
-      const totalMarcado = c.dias ? c.dias.filter(d => d !== 'futuro').length : 0;
+    Object.entries(data || {}).forEach(([id, c]) => {
+      if (!c.nome.toLowerCase().includes(term) && !c.loja.toLowerCase().includes(term)) return;
+      total += (c.total || 0);
       const pagos = c.dias ? c.dias.filter(d => d === 'pago').length : 0;
-      const pontualidade = totalMarcado > 0 ? Math.round((pagos / totalMarcado) * 100) : 100;
-      const progresso = c.diasTotal > 0 ? (pagos / c.diasTotal) * 100 : 0;
 
-      const card = document.createElement("div");
-      card.className = "cliente-card";
-      card.innerHTML = `
-        <div class="card-header">
-          <span>${c.nome}</span>
-          <div style="display:flex; gap:10px; align-items:center;">
-             <i class="fas fa-edit" style="cursor:pointer; color:#3B82F6;" id="edit-${id}"></i>
-             <span style="color:#FBBF24">Crédito: R$ ${c.limite.toFixed(2)}</span>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="stats-mini">
-            <div><p style="opacity:0.6">Pontualidade</p><strong>${pontualidade}%</strong></div>
-            <div><p style="opacity:0.6">Parcelas</p><strong>${pagos}/${c.diasTotal || 0}</strong></div>
-            <button style="background:transparent; border:1px solid #3B82F6; color:#3B82F6; border-radius:8px; padding:2px 8px; font-size:0.6rem; cursor:pointer;" id="limite-${id}">+ Crédito</button>
-          </div>
-          
-          <p style="font-size:0.8rem; margin-bottom:2px;"><strong>Endereço:</strong> ${c.endereco || 'Não informado'}</p>
-          <p style="font-size:0.8rem; margin-bottom:5px;"><strong>Local:</strong> ${c.loja} - ${c.bairro}</p>
-          <p style="color: ${totalEmDivida > 0 ? '#E2E8F0' : '#10B981'}">
-            <strong>Dívida:</strong> ${totalEmDivida > 0 ? 'R$ ' + totalEmDivida.toFixed(2) : 'EM DIA / SEM COBRANÇA'}
-          </p>
-
-          ${c.diasTotal > 0 ? `
-            <div style="background:#1E293B; height:8px; border-radius:10px; margin:10px 0; overflow:hidden;">
-              <div style="background:#10B981; height:100%; width:${progresso}%;"></div>
-            </div>
-            <div class="calendario-modern">${c.dias.map((s, i) => `<div class="dia-item dia-${s}">${i+1}</div>`).join('')}</div>
-          ` : '<div style="height:20px"></div>'}
-
-          <div class="acoes-card">
-            <button class="btn-action" style="background:#10B981" id="pago-${id}">Pago</button>
-            <button class="btn-action" style="background:#F97316" id="atraso-${id}">Atraso</button>
-            <button class="btn-action" style="background:#DC2626" id="del-${id}"><i class="fas fa-trash"></i></button>
-          </div>
-        </div>
-      `;
-      listaDiv.appendChild(card);
-
-      document.getElementById(`pago-${id}`).onclick = () => marcarStatus(id, c, 'pago');
-      document.getElementById(`atraso-${id}`).onclick = () => marcarStatus(id, c, 'atrasado');
-      document.getElementById(`del-${id}`).onclick = () => { if(confirm("Remover cliente?")) remove(ref(db, `clientes/${id}`)); };
-      document.getElementById(`edit-${id}`).onclick = () => prepararEdicao(id, c);
-      document.getElementById(`limite-${id}`).onclick = () => {
-         const n = prompt("Novo limite:", c.limite);
-         if(n) update(ref(db, `clientes/${id}`), { limite: parseFloat(n) });
+      const div = document.createElement("div");
+      div.className = "cliente-card";
+      div.innerHTML = `
+        <div class="card-header"><span>${c.nome}</span><i class="fas fa-edit" style="color:var(--blue);cursor:pointer" id="e-${id}"></i></div>
+        <div style="font-size:0.75rem;margin-bottom:8px;opacity:0.8">${c.endereco || ''} | ${c.loja}</div>
+        <p style="color:${c.total > 0 ? '#E2E8F0' : 'var(--green)'}"><strong>Dívida:</strong> R$ ${(c.total||0).toFixed(2)}</p>
+        <div class="stats-mini"><span>Parcelas: ${pagos}/${c.diasTotal||0}</span><span>Crédito: R$ ${c.limite}</span></div>
+        <div class="calendario-modern">${(c.dias||[]).map((s,i)=>`<div class="dia-item dia-${s}">${i+1}</div>`).join('')}</div>
+        <div class="acoes-card">
+          <button class="btn-action" style="background:var(--green)" id="p-${id}">Pago</button>
+          <button class="btn-action" style="background:#F97316" id="a-${id}">Atraso</button>
+          <button class="btn-action" style="background:#DC2626" id="d-${id}">Remover</button>
+        </div>`;
+      list.appendChild(div);
+      
+      document.getElementById(`p-${id}`).onclick = () => mStatus(id, c, 'pago');
+      document.getElementById(`a-${id}`).onclick = () => mStatus(id, c, 'atrasado');
+      document.getElementById(`d-${id}`).onclick = () => confirm("Remover?") && remove(ref(db, `clientes/${id}`));
+      document.getElementById(`e-${id}`).onclick = () => {
+        idEd = id; 
+        ["nome","whatsapp","endereco","bairro","loja","limite"].forEach(k => setV(k, c[k]||''));
+        setV("valor", c.total); 
+        document.getElementById("btnC").style.display = "block";
+        window.scrollTo(0,0);
       };
     });
-    document.getElementById("receitaTotal").innerText = `R$ ${totalGeral.toFixed(2)}`;
+    document.getElementById("receitaTotal").innerText = `R$ ${total.toFixed(2)}`;
   }
 
-  function marcarStatus(id, cliente, status) {
-    if (!cliente.dias) return;
-    const novosDias = [...cliente.dias];
-    const prox = novosDias.indexOf('futuro');
-    if (prox === -1) return alert("Este empréstimo já foi finalizado!");
-    novosDias[prox] = status;
-    const aindaTemParcela = novosDias.includes('futuro');
-    if (!aindaTemParcela) {
-      alert(`Parabéns! O cliente ${cliente.nome} quitou o empréstimo.`);
-      update(ref(db, `clientes/${id}`), { total: 0, diasTotal: 0, dias: [], consecutivosPago: 0 });
-    } else {
-      update(ref(db, `clientes/${id}`), { dias: novosDias });
-    }
+  function mStatus(id, c, s) {
+    if (!c.dias) return;
+    let nd = [...c.dias]; 
+    const px = nd.indexOf('futuro');
+    if (px === -1) return alert("Finalizado!");
+    nd[px] = s;
+    if (!nd.includes('futuro')) {
+      alert("Quitado!");
+      update(ref(db, `clientes/${id}`), { total: 0, diasTotal: 0, dias: [] });
+    } else update(ref(db, `clientes/${id}`), { dias: nd });
   }
 
   document.getElementById("btnSalvar").onclick = () => {
-    const valor = parseFloat(document.getElementById("valor").value) || 0;
-    const juros = parseFloat(document.getElementById("juros").value) || 0;
-    const dias = parseInt(document.getElementById("diasPlano").value);
-    
+    const v = parseFloat(getV("valor")) || 0, j = parseFloat(getV("juros")) || 0, d = parseInt(getV("diasPlano"));
     const dados = {
-      nome: document.getElementById("nome").value,
-      whatsapp: document.getElementById("whatsapp").value,
-      endereco: document.getElementById("endereco").value,
-      loja: document.getElementById("loja").value,
-      bairro: document.getElementById("bairro").value,
-      total: valor + (valor * (juros / 100)),
-      limite: parseFloat(document.getElementById("limite").value) || 0,
-      diasTotal: dias,
-      dias: dias > 0 ? Array(dias).fill('futuro') : []
+      nome: getV("nome"), whatsapp: getV("whatsapp"), endereco: getV("endereco"), bairro: getV("bairro"),
+      loja: getV("loja"), total: v + (v * j/100), limite: getV("limite"), diasTotal: d, dias: d>0 ? Array(d).fill('futuro') : []
     };
-
-    if(idEdicao) {
-      update(ref(db, `clientes/${idEdicao}`), dados);
-      cancelarEdicao();
-    } else {
-      push(clientesRef, dados);
-    }
-    limparCampos();
+    idEd ? update(ref(db, `clientes/${idEd}`), dados) : push(clRef, dados);
+    idEd = null; 
+    document.getElementById("btnC").style.display = "none";
+    ["nome","whatsapp","endereco","bairro","loja","valor","juros"].forEach(k => setV(k, k === "juros" ? "0" : ""));
   };
 
-  function prepararEdicao(id, c) {
-    idEdicao = id;
-    document.getElementById("formTitle").innerText = "Editando: " + c.nome;
-    document.getElementById("nome").value = c.nome;
-    document.getElementById("whatsapp").value = c.whatsapp;
-    document.getElementById("endereco").value = c.endereco || '';
-    document.getElementById("loja").value = c.loja;
-    document.getElementById("bairro").value = c.bairro;
-    document.getElementById("valor").value = c.total;
-    document.getElementById("limite").value = c.limite;
-    document.getElementById("btnSalvar").innerText = "Atualizar";
-    document.getElementById("btnCancelarEdicao").style.display = "block";
-    window.scrollTo(0,0);
-  }
-
-  function cancelarEdicao() {
-    idEdicao = null;
-    document.getElementById("formTitle").innerText = "Novo Cliente / Empréstimo";
-    document.getElementById("btnSalvar").innerText = "Salvar no Sistema";
-    document.getElementById("btnCancelarEdicao").style.display = "none";
-    limparCampos();
-  }
-
-  function limparCampos() {
-    ["nome", "whatsapp", "endereco", "loja", "bairro", "valor", "limite"].forEach(i => document.getElementById(i).value = "");
-  }
-
-  document.getElementById("btnCancelarEdicao").onclick = cancelarEdicao;
-  document.getElementById("inputBusca").oninput = () => render(todosClientes);
-  onValue(clientesRef, (s) => { todosClientes = s.val(); render(todosClientes); });
+  onValue(clRef, s => { todos = s.val(); render(todos); });
+  document.getElementById("inputBusca").oninput = () => render(todos);
+  document.getElementById("btnC").onclick = () => { idEd = null; document.getElementById("btnC").style.display = "none"; ["nome","whatsapp","endereco","bairro","loja","valor"].forEach(k => setV(k, "")); };
 </script>
-
-<footer>
-  Agiota-Bank PRO — Sistema de Gestão de Crédito Inteligente
-</footer>
 </body>
- </html>
- 
+       </html>
+       
